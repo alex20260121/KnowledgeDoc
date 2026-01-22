@@ -65,4 +65,4 @@ systemctl restart docker
 systemctl show docker.service --property='Environment'
 ```
 
-[!img](/Linux/shotcut/b844d2c7-a4e7-4cbe-a9bd-685a2a62b363.png)
+![img](/Linux/shotcut/b844d2c7-a4e7-4cbe-a9bd-685a2a62b363.png)
