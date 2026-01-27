@@ -337,6 +337,22 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
         <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
     </property>
 
+<!-- 开启日志聚合功能 -->
+    <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+    </property>
+<!-- 日志回收策略、默认为7天、以秒计时 -->
+    <property>
+        <name>yarn.log-aggregation.retain-seconds</name>
+        <value>604800</value>
+    </property>
+<!-- 日志重定向JobHistory服务 -->
+    <property>
+        <name>yarn.log.server.url</name>
+        <value>http://node-worker-1:19888/jobhistory/logs</value>
+    </property>
+
 </configuration>
 ```
 
@@ -542,4 +558,4 @@ yarn --daemon start nodemanager
 > 
 > JobHistoryServer如果没有自动启动，则需要通过命令：`mapred --daemon start historyserver`来启动该服务。
 
-# 
+
