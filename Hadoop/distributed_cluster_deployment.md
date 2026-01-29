@@ -558,5 +558,3 @@ yarn --daemon start nodemanager
 > [!NOTE]
 > 
 > JobHistoryServer如果没有自动启动，则需要通过命令：`mapred --daemon start historyserver`来启动该服务。
-
-
