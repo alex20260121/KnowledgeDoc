@@ -421,41 +421,42 @@ set -e
 host_list=("node-worker-1" "node-worker-2" "node-worker-3")
 
 function hadoop {
-    dir_path="/hadoop/src/hadoop-3.3.6"
-    for host in ${host_list[@]}
-    do
-        scp -r ${dir_path} hadoop@${host}:${dir_path}
-    done
+	src_path="/hadoop/src/hadoop-3.3.6"
+	dest_path="/hadoop/src/"
+	for host in ${host_list[@]}
+	do
+		scp -r ${src_path} hadoop@${host}:${dest_path}
+	done
 }
 
 function env {
-    file_path="/home/hadoop/.bashrc"
-    for host in ${host_list[@]}
-    do
-        scp ${file_path} hadoop@${host}:${file_path}
-    done
+	file_path="/home/hadoop/.bashrc"
+	for host in ${host_list[@]}
+	do
+		scp ${file_path} hadoop@${host}:${file_path}
+	done
 }
 
 function usage {
-    echo "This script is a file transfer assistant."
-    echo "usage: $0 func"
-    echo "func:"
-    echo -e "\thadoop: Transfer the entire Hadoop directory to the target host"
-    echo -e "\tenv：Transfer the entire user env file to the target host"
-    echo "Example:"
-    echo -e "\t$0 hadoop"
+	echo "This script is a file transfer assistant."
+	echo "usage: $0 func"
+	echo "func:"
+	echo -e "\thadoop: Transfer the entire Hadoop directory to the target host"
+	echo -e "\tenv：Transfer the entire user env file to the target host"
+	echo "Example:"
+	echo -e "\t$0 hadoop"
 }
 
 case $1 in
-    hadoop)
-        hadoop
-        ;;
-    env)
-        env
-        ;;
-    *)
-        usage
-        ;;
+	hadoop)
+		hadoop
+		;;
+	env)
+		env
+		;;
+	*)
+		usage
+		;;
 esac
 
 ```
