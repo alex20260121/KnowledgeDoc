@@ -12,3 +12,7 @@ Cloudflare作为全球知名CDN服务商，也称为'互联网大善人'，利�
 
 - **命名隧道**
 ![12.png](/Win/Pictu/12.png)
+
+- **安装并运行Cloudflared**
+![13.png](/Win/Pictu/13.png)
+
