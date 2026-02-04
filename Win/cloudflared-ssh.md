@@ -32,3 +32,7 @@ cloudflared tunnel run --token eyJhIjoiMmZlOTJjNzBlMzM0YTFiZm......RNVl6TTBZakl5
 
 成功连接如下所示：
 ![14.png](/Win/Pictu/14.png)
+
+### 1.2. 为该隧道配置域名及路由
+
+![15.png](/Win/Pictu/15.png)
