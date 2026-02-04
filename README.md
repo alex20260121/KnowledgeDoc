@@ -34,6 +34,7 @@
 ### 其他
 
 - **[Win10免费激活官方Office](/Win/install-office.md)**
+- **[Cloudflare配置SSH内网穿透](/Win/cloudflared-ssh.md)**
 
 ### Linux
 
