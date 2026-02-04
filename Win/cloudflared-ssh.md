@@ -36,3 +36,6 @@ cloudflared tunnel run --token eyJhIjoiMmZlOTJjNzBlMzM0YTFiZm......RNVl6TTBZakl5
 ### 1.2. 为该隧道配置域名及路由
 
 ![15.png](/Win/Pictu/15.png)
+
+> [!NOTE]
+> 端口改为自己的SSH端口。
