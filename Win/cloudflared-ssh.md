@@ -30,3 +30,5 @@ cloudflared tunnel run --token eyJhIjoiMmZlOTJjNzBlMzM0YTFiZm......RNVl6TTBZakl5
 > [!TIP]
 > `token`后面这一串字符需要保存起来，这个相当于鉴权的令牌。
 
+成功连接如下所示：
+![14.png](/Win/Pictu/14.png)
