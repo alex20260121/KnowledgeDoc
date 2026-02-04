@@ -19,3 +19,14 @@ Cloudflare作为全球知名CDN服务商，也称为'互联网大善人'，利�
 > [!TIP]
 > 选择自己的操作系统类型和版本，由于我是安装在OpenWrt上，所以直接在[github](https://github.com/cloudflare/cloudflared/releases/tag/2026.1.2)下载二进制文件。
 
+### 1.1. 启动cloudflared
+
+因为下载的是二进制可执行文件，可以`chmod +x cloudflared`给予执行权限。
+
+```bash
+cloudflared tunnel run --token eyJhIjoiMmZlOTJjNzBlMzM0YTFiZm......RNVl6TTBZakl5TkRBeCJ9
+```
+
+> [!TIP]
+> `token`后面这一串字符需要保存起来，这个相当于鉴权的令牌。
+
