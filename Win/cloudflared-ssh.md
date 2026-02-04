@@ -59,3 +59,6 @@ Host your_ssh_domain
 ```bash
 ssh your_domain
 ```
+
+> [!IMPORTANT]
+> 注意：本地也需要安装`cloudflared`哦，不然直接使用ssh会提示`command not found: cloudflared`
