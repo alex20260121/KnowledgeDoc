@@ -39,3 +39,23 @@ cloudflared tunnel run --token eyJhIjoiMmZlOTJjNzBlMzM0YTFiZm......RNVl6TTBZakl5
 
 > [!NOTE]
 > 端口改为自己的SSH端口。
+
+## 2. 配置SSH代理
+
+本文展示的是在MacOS平台下进行终端的连接，当然还有其它连接方式，但这里只用终端来进行演示。
+
+编辑`~/.ssh/config`如下内容：
+
+```bash
+Host your_ssh_domain
+    User your_ssh_username
+    ProxyCommand cloudflared access ssh --hostname %h
+    IdentityFile "your_private_key_path"
+    Port 22
+```
+
+保存退出后直接使用：
+
+```bash
+ssh your_domain
+```
