@@ -42,4 +42,14 @@ window.chrome.loadTimes()?.npnNegotiatedProtocol
 
 ## 2. 布署节点
 
+通过运行提供的安装脚本自动配置Systemd。
+
+安装文件层次结构参考[Xray-install](用于在支持 systemd 的操作系统（如 CentOS / Debian / OpenSUSE）中安装 Xray 的 Bash 脚本。)
+
+```bash
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+```
+
+### 2.1. 配置服务端节点
+
 
