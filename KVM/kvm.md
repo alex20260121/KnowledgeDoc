@@ -50,3 +50,31 @@ virsh list --all
 ```
 
 ![list](/KVM/img/2.png)
+
+## 5. 为虚拟机增加一块磁盘
+
+首先得创建一块磁盘，推荐使用`qcow2`格式的磁盘，它支持动态分配空间和快照。
+
+```bash
+# 语法: qemu-img create -f 格式 路径 大小
+qemu-img create -f qcow2 /var/lib/libvirt/images/new-disk.qcow2 20G
+```
+
+将该磁盘挂载到目标虚拟机。
+
+```bash
+# 语法: virsh attach-disk <虚拟机名称> <源磁盘路径> <目标设备名> [参数]
+
+virsh attach-disk my-vm /var/lib/libvirt/images/new-disk.qcow2 vdb \
+--targetbus virtio \
+--subdriver qcow2 \
+--config --live
+```
+
+> [!NOTE]
+> 参数：
+> --targetbus virtio: 使用 VirtIO 总线（性能最好）。
+> --subdriver qcow2: 指定驱动类型。
+> --config: 将配置写入 XML 文件，重启后依然有效（持久化）。
+> --live: 立即生效，无需关闭虚拟机（热添加）。
+**注意：** 建议同时使用 --config 和 --live 以确保即时生效且永久保存。
