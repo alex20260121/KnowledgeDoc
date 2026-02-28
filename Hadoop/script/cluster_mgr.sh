@@ -1,101 +1,63 @@
 #!/usr/bin/env bash
 
-# This script manager the hadoop cluster.
 set -e
+cluster_workers=('node-worker-1' 'node-worker-2' 'node-worker-3')
 
-function usage {
-	echo -e "\033[1;31mThis script manager the hadoop cluster.\033[0m"
-	echo "Usage: $0 [command] [args]..."
-	echo -e "\tcommand:"
-	echo -e "\t\tsync_hadoop: to sync hadoop installed directory."
-	echo -e "\t\tsync_env: to sync '~/.bashrc' from hadoop user environment variables."
-	echo -e "\t\tcheck_stats: Checking hadoop cluster proccess."
-	echo -e "\t\tstart_history: launch JobHistory server to target host."
-	echo -e "\t\t\targs: Hostname or IPAddress."
-	echo -e "\t\tstop_history: shutdown JobHistory server to target host."
-	echo -e "\t\t\targs: Hostname or IPAddress."
-	echo "Example: $0 sync_hadoop "
-	echo -e "\tto sync hadoop installed directory."
-
-}
-
-function sync_installed_hadoop_dir {
-	hosts_list=(node-worker-1 node-worker-2 node-worker-3)
-	src_dir=/hadoop/src/hadoop-3.3.6
-	dest_dir=/hadoop/src
-	for host in ${hosts_list[@]}
+function sync_hadoop {
+	src_path="/hadoop/src/hadoop-3.3.6"
+	dest_path="/hadoop/src/"
+	for host in ${cluster_workers[@]}
 	do
-		scp -r -o StrictHostKeyChecking=no ${src_dir} hadoop@${host}:${dest_dir}
+		scp -r ${src_path} hadoop@${host}:${dest_path}
+		if [ $? -eq 0 ];then
+			echo -e "\033[1;32m$host scp done.\033[0m"
+		fi
 	done
 }
 
-function sync_environment_variables {
-	hosts_list=(node-worker-1 node-worker-2 node-worker-3)
-	target_file=/home/hadoop/.bashrc
-	for host in ${hosts_list[@]}
+function sync_env {
+	sync_path="/home/hadoop/.bashrc"
+	for host in ${cluster_workers[@]}
 	do
-		scp -o StrictHostKeyChecking=no ${target_file} hadoop@${hosts}:${target_file}
+		echo -e "\033[1;32mSynchronizing $host host.\033[0m"
+		scp ${sync_path} hadoop@${host}:${sync_path}
 	done
 }
 
-function checking_cluster_proccess_stats {
-	hosts_list=(node-manager-1 node-worker-1 node-worker-2 node-worker-3)
-	for host in ${hosts_list[@]}
+function cluster_state {
+	all_members=('node-manager-1' 'node-worker-1' 'node-worker-2' 'node-worker-3')
+	for member in ${all_members[@]}
 	do
-		echo $host
-		ssh -n -o StrictHostKeyChecking=no hadoop@${host} jps
+		echo -e "\033[1;32mChecking $member states\033[0m"
+		ssh -n -o StrictHostKeyChecking=no hadoop@${member} "jps|grep -v Jps"
 		echo
 	done
 }
 
-function launch_JobHistory_server {
-	JobHistory_hostname=$1
-	JobHistory_server_counter=$(ssh -n -o StrictHostKeyChecking=no hadoop@${JobHistory_hostname} "jps|grep JobHistoryServer|wc -l")
-	if [ ${JobHistory_server_counter} -eq 0 ];then
-		echo -e "\033[1;31mLaunching JobHistory server at ${JobHistory_hostname}.\033[0m"
-		ssh -n -o StrictHostKeyChecking=no hadoop@${JobHistory_hostname} "mapred --daemon start historyserver"
-		if [ $? -eq 0 ];then
-			echo -e "\033[1;32mFinished.\033[0m"
-		else
-			echo -e "\033[1;31mFailed.\033[0m"
-		fi
-	else
-		echo -e "\033[1;32mThe JobHistory server already running at $JobHistory_hostname.\033[0m"
-	fi
+function user_documentation {
+	echo -e "\t\t- - - - - - - - - - - - - - - - -"
+	echo "The script provides basic functions for managing Hadoop clusters."
+	echo "Such as synchronizing cluster configuration files and environment variable files..."
+	echo
+	echo "Usage: $0 [command] [options]"
+	echo "commands:"
+	echo -e "\thadoop: All worker nodes will synchronize the Hadoop directory of the master node."
+	echo -e "\tenvironment: All worker nodes will synchronize with the master node's ~/.bashrc file."
+	echo -e "\tstates: Checking cluster state."
+	echo -e "\t\t- - - - - - - - - - - - - - - - -"
 }
 
-function shutdown_JobHistory_server {
-	JobHistory_hostname=$1
-	JobHistory_server_counter=$(ssh -n -o StrictHostKeyChecking=no hadoop@${JobHistory_hostname} "jps|grep JobHistoryServer|wc -l")
-	if [ ${JobHistory_server_counter} -eq 0 ];then
-		echo -e "\033[1;32mThe JobHistory server is already shutdowned at ${JobHistory_hostname}.\033[0m"
-	else
-		echo -e "\033[1;31mShuting down Jobhistory server at ${JobHistory_hostname}.\033[0m"
-		ssh -n -o StrictHostKeyChecking=no hadoop@${JobHistory_hostname} "mapred --daemon stop historyserver"
-		if [ $? -eq 0 ];then
-			echo -e "\033[1;32mFinished\033[0m"
-		else
-			echo -e "\033[1;31mFailed\033[0m"
-		fi
-	fi
-}
 case $1 in
-	sync_hadoop)
-		sync_installed_hadoop_dir
+	hadoop)
+		sync_hadoop
 		;;
-	sync_env)
-		sync_environment_variables
+	environment)
+		sync_env
 		;;
-	check_stats)
-		checking_cluster_proccess_stats
-		;;
-	start_history)
-		launch_JobHistory_server $2
-		;;
-	stop_history)
-		shutdown_JobHistory_server $2
+	states)
+		cluster_state
 		;;
 	*)
-		usage
+		user_documentation
 		;;
 esac
