@@ -54,36 +54,44 @@ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release
 
 ```json
 {
-        "inbounds": [
-                {
-                        "listen": "0.0.0.0",
-                        "port": 443,
-                        "protocol": "vless",
-                        "settings": {
-                                "clients": [
-                                        {
-                                                "id": "32cc1ff6-5a3c-4207-9b6d-bfbbff228d41",
-                                                "flow": "xtls-rprx-vision"
-                                        }
-                                ],
-                                "decryption": "none"
-                        },
-                        "streamSettings": {
-                                "network": "raw",
-                                "security": "reality",
-                                "realitySettings": {
-                                        "show": false,
-                                        "target": "www.rtbhouse.com:443",
-                                        "xver": 0,
-                                        "serverNames": ["www.rtbhouse.com"],
-                                        "privateKey": "your_private_key",
-                                        "shortIds": ["0a626cfbc899"]
-                                }
-                        }
-
+    "log": {
+        "access": "/usr/local/etc/xray/access.log",
+        "error": "/usr/local/etc/xray/error.log",
+        "loglevel": "info",
+        "dnsLog": false
+    },
+    "inbounds": [
+        {
+            "listen": "10.138.0.3",
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "f5eae1d5-e233-430f-93f4-cd24f6942572",
+                        "flow": "xtls-rprx-vision"
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "raw",
+                "security": "reality",
+                "realitySettings": {
+                    "show": false,
+                    "target": "annjam.jp:443",
+                    "serverNames": ["annjam.jp"],
+                    "privateKey": "MMoIqDutRgHGYmUdNMW6zHtMHwP_YIpNXnRL2Sf7B1Q",
+                    "shortIds": ["", "2bdfd4299fe5"]
                 }
-        ]
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "sendThrough": "10.138.0.3",
+            "protocol": "freedom"
+        }
+    ]
 }
 ```
-
-
