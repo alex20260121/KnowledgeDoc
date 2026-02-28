@@ -52,4 +52,38 @@ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release
 
 ### 2.1. 配置服务端节点
 
+```json
+{
+        "inbounds": [
+                {
+                        "listen": "0.0.0.0",
+                        "port": 443,
+                        "protocol": "vless",
+                        "settings": {
+                                "clients": [
+                                        {
+                                                "id": "32cc1ff6-5a3c-4207-9b6d-bfbbff228d41",
+                                                "flow": "xtls-rprx-vision"
+                                        }
+                                ],
+                                "decryption": "none"
+                        },
+                        "streamSettings": {
+                                "network": "raw",
+                                "security": "reality",
+                                "realitySettings": {
+                                        "show": false,
+                                        "target": "www.rtbhouse.com:443",
+                                        "xver": 0,
+                                        "serverNames": ["www.rtbhouse.com"],
+                                        "privateKey": "your_private_key",
+                                        "shortIds": ["0a626cfbc899"]
+                                }
+                        }
+
+                }
+        ]
+}
+```
+
 
