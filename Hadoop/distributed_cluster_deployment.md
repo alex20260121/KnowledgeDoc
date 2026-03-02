@@ -357,7 +357,7 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
         <name>yarn.nodemanager.resource.memory-mb</name>
         <value>3276</value>
     </property>
-    <propery>
+    <property>
         <name>yarn.nodemanager.resource.cpu-vcores</name>
         <value>2</value>
     </property>
