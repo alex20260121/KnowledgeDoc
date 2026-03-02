@@ -352,7 +352,15 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
         <name>yarn.log.server.url</name>
         <value>http://node-worker-1:19888/jobhistory/logs</value>
     </property>
-
+<!--将默认的逻辑分配值、同步为物理机实际资源的80% -->
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>3276</value>
+    </property>
+    <propery>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>2</value>
+    </property>
 </configuration>
 ```
 
