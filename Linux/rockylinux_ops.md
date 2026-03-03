@@ -37,5 +37,5 @@ nmcli connection modify enp1s0 ipv4.method manual
 nmcli connection up enp1s0
 ```
 
-> ![NOTE]
+> [!NOTE]
 > 用该命令配置网络也支持持久化，会写入网络配置文件 `/etc/NetworkManager/system-connections/enp1s0.nmconnection`
