@@ -5,7 +5,7 @@
 > `$hostname` 代表主机名是一个变量。
 
 ## 1. 克隆虚拟机
->
+
 > [!NOTE]
 > 克隆之前需要提前关闭被克隆的虚拟机
 
@@ -30,6 +30,7 @@ sudo virt-install --name k8s_master_template  \
 ```
 
 ![install](/KVM/img/1.png)
+
 > [!TIP]
 > 在`--location`参数中指定内核按照当前发行版实际文件名，有的kernel可能是`vmlinuz`，而initrd可能是`initrd`
 
@@ -77,4 +78,45 @@ virsh attach-disk my-vm /var/lib/libvirt/images/new-disk.qcow2 vdb \
 > --subdriver qcow2: 指定驱动类型。
 > --config: 将配置写入 XML 文件，重启后依然有效（持久化）。
 > --live: 立即生效，无需关闭虚拟机（热添加）。
+
 **注意：** 建议同时使用 --config 和 --live 以确保即时生效且永久保存。
+
+## 6. 重命名虚拟机
+
+kvm没有直接重命名虚拟机的命令，只有导出虚拟机配置文件，然后在配置文件内修改，然后重新应用该虚拟机配置。
+
+### 6.1. 停止/关闭虚拟机
+
+```bash
+virsh shutdown old_vmname
+```
+
+### 6.2. 导出虚拟机配置文件
+
+```bash
+virsh dumpxml old_vmname > /new/vmname/path/new.xml
+```
+
+### 6.3. 重命虚拟机Name
+
+```xml
+<domain type='kvm'>
+  <name>hadoop.node.worker-2</name>
+  <uuid>2b6d9211-55d6-4b05-8a75-764b0c9758c0</uuid>
+  ......
+</domain>
+```
+
+### 6.4. 删除旧虚拟机
+
+```bash
+virsh undefine old_vmname
+```
+
+### 6.5. 重新注册重命名后的虚拟机
+
+```bash
+virsh define /new/vmname/path/new.xml
+```
+
+
