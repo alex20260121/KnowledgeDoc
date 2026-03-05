@@ -2,7 +2,7 @@
 
 hadoop集群交互主要是命令行(CLI)客户端工具：`hadoop`、`hdfs`、`yarn`、`mapred`，当然除了这些$HADOOP_HOME/sbin下如集群启动脚本命令：`start-dfs.sh`、`stop-dfs.sh`...，打开看一下可以发现全是bash脚本。
 
-## hdfs
+## HDFS
 
 hdfs是hadoop分布式文件系统(HDFS)的管理脚本。
 
@@ -66,3 +66,38 @@ hdfs dfs -du -h /path/to/dir
 ```bash
 hdfs dfs -df -h
 ```
+
+## YARN
+
+YARN（Yet Another Resource Negotiator）是Hadoop的资源管理器，以下是一些常见的YARN命令：
+
+### 查看集群资源状态
+
+```bash
+yarn node -list
+```
+
+### 查看集群作业状态
+
+```bash
+yarn application -list
+```
+
+### 查看某个作业的详情
+
+```bash
+yarn application -status <application_id>
+```
+
+### 强制终止某个作业
+
+```bash
+yarn application -kill <application_id>
+```
+
+### 提交mapreduce作业
+
+```bash
+yarn jar <jar_file> <main_class> <args>
+```
+
