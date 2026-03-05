@@ -6,7 +6,7 @@ hadoop集群交互主要是命令行(CLI)客户端工具：`hadoop`、`hdfs`、`
 
 hdfs是hadoop分布式文件系统(HDFS)的管理脚本。
 
-- **查看HDFS文件系统状态：**
+### 查看HDFS文件系统状态
 
 ```bash
 hdfs dfsadmin -report 
@@ -16,19 +16,19 @@ hdfs dfsadmin -report
 > `hdfs dfsadmin -report` 还有其它一些子参数，如：`-live`、`slownodes`...
 > 通过`hdfs dfsadmin -help`将会输出比较详细的说明。
 
-- **列出HDFS文件目录**
+### 列出HDFS文件目录
 
 ```bash
 hdfs dfs -ls /
 ```
 
-- **复制目录或文件至HDFS**
+### 复制目录或文件至HDFS
 
 ```bash
 hdfs dfs -copyFromLocal <localsrc> <dst>
 ```
 
-- **复制目录到本地**
+### 复制目录到本地
 
 ```bash
 hdfs dfs -copyToLocal <src> <localdst>
