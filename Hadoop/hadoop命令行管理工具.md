@@ -36,3 +36,33 @@ hdfs dfs -copyToLocal <src> <localdst>
 
 > [!TIP]
 > 拷贝至HDFS或从HDFS拷贝至本地等价于`hdfs dfs -put <localsrc> <dst>`、`hdfs dfs -get <src> <localdst>`
+
+### 删除文件或目录
+
+```bash
+hdfs dfs -rm -r /path/to/dir
+```
+
+### 查看文件内容
+
+```bash
+hdfs dfs -cat /path/to/file
+```
+
+### 创建目录
+
+```bash
+hdfs dfs -mkdir /path/to/dir
+```
+
+### 查看目录或文件的使用情况
+
+```bash
+hdfs dfs -du -h /path/to/dir
+```
+
+### 查看HDFS的容量使用情况
+
+```bash
+hdfs dfs -df -h
+```
