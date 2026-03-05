@@ -101,3 +101,18 @@ yarn application -kill <application_id>
 yarn jar <jar_file> <main_class> <args>
 ```
 
+## MAPRED
+
+mapred管理mapreduce的命令。
+
+### 列出当前队列
+
+```bash
+mapred queue -list
+```
+
+### 启动JobHistory服务
+
+```bash
+mapred --daemon start historyserver
+```
